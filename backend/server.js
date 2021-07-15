@@ -1,23 +1,27 @@
 const express = require('express');
-const products = require('./data/products');
+const dotenv = require('dotenv');
+const colors = require('colors')
+const connectDB = require('./config/db')
+const mongoose = require('mongoose');
+const productRoutes = require('./route/productRoutes')
+const { notFound, errorHandler} = require('./customError/middleware')
 
+mongoose.connect()
+dotenv.config();
+connectDB();
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('hello world')
+  res.send('API is running')
 })
 
- app.get('/api/products', (req, res) => {
-res.json(products)
- })
+app.use('/api/products', productRoutes)
+app.use(notFound)
+app.use(errorHandler)
 
- app.get('/api/products/:id', (req, res) =>{
-   const product = products.find((p) => p._id === req.params.id)
-   res.json(product)
- })
+const PORT = process.env.PORT || 5000;
+const dev = process.env.NODE_ENV || 'development';
 
-const port = 5000;
-
-app.listen(port,  
-  console.log( `listening at port: ${port}`) 
+app.listen(PORT, console.log( `listening at ${dev} mode  at port: ${PORT}`.yellow.bold) 
 )
+
