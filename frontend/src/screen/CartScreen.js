@@ -3,6 +3,7 @@ import { useDispatch, useSelector} from "react-redux";
 import { Link } from "react-router-dom";
 import { Image, Col, Row, Card, ListGroup, Button, Form } from "react-bootstrap";
 import {addToCart} from "../action/cartAction";
+import {removeFromCart} from "../action/cartAction";
 import Message from "../components/Message";
 
 
@@ -24,7 +25,11 @@ export const CartScreen = ({ match, location, history }) => {
   }, [dispatch, productId, qty])
 
 const removeFromCartHandler = (id) => {
-  console.log('remove')
+  dispatch(removeFromCart(id))
+}
+
+const checkOutHandler = ( ) => {
+  history.push('/login?redirect=shipping')
 }
 
   return (
@@ -84,6 +89,28 @@ const removeFromCartHandler = (id) => {
                         </ListGroup>
                       )
                 }
+              </Col>
+              <Col md={4}>
+                <Card>
+                  <ListGroup variant='flush'>
+                    <ListGroup.Item>
+                    <h2>
+                      SubTotal ({cartItems.reduce((acc, item) =>
+                      acc + item.qty, 0 )})
+                      items
+                    </h2>
+                    ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)
+                    .toFixed(2)}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Button type='button' className='btn-block' 
+                      disabled={cartItems.length ===0}
+                      onClick={checkOutHandler} >
+                        Proceed to Checkout
+                      </Button>
+                    </ListGroup.Item>
+                  </ListGroup>
+                </Card>
               </Col>
             </Row>
          )
