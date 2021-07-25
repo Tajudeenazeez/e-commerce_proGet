@@ -41,21 +41,21 @@ brand:{
 },
 reviews: [reviewSchema],
 rating:{
-  type: Boolean,
+  type: Number,
   required: true,
   default: 0
 },
 numReviews:{
-  type: String,
+  type: Number,
   required: true
 },
 price:{
-  type: String,
+  type: Number,
   required: true,
   default: 0
 },
 countInStock:{
-  type: String,
+  type: Number,
   required: true,
   default: 0
 },

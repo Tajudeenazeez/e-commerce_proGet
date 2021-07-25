@@ -15,8 +15,8 @@ const connectDB = async () => {
   }
 }
 
-// const server = '127.0.0.1:27017'; // REPLACE WITH YOUR OWN SERVER
-// const database = 'test';          // REPLACE WITH YOUR OWN DB NAME
+//const server = '127.0.0.1:27017'; // REPLACE WITH YOUR OWN SERVER
+//const database = 'test';          // REPLACE WITH YOUR OWN DB NAME
 
 //  connectDB = async () => {
 //     try {
@@ -33,6 +33,6 @@ const connectDB = async () => {
 //     }
 // };
 
-// connectDB();
+//connectDB();
 
 module.exports = connectDB
