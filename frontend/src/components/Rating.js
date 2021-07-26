@@ -1,5 +1,4 @@
 import React from 'react'
-import { propTypes } from 'react-bootstrap/esm/Image'
 import PropTypes from 'prop-types'
 
 const Rating = ({ value, text, color}) => {
@@ -16,16 +15,7 @@ const Rating = ({ value, text, color}) => {
 
       <span>
         <i style={{color}}
-        className={value >= 1 
-          ? 'fas fa-star' 
-          : value >= 0.5 
-          ? 'fa fa-star-half-alt' 
-          : 'far fa-star'}></i>
-      </span>
-
-      <span>
-        <i style={{color}}
-        className={value >= 2
+        className={value >= 2 
           ? 'fas fa-star' 
           : value >= 1.5 
           ? 'fa fa-star-half-alt' 
@@ -40,7 +30,7 @@ const Rating = ({ value, text, color}) => {
           ? 'fa fa-star-half-alt' 
           : 'far fa-star'}></i>
       </span>
-
+ 
       <span>
         <i style={{color}}
         className={value >= 4
@@ -51,14 +41,17 @@ const Rating = ({ value, text, color}) => {
       </span>
 
       <span>
-        <i style={{color}} 
-        className={value >= 5 
+        <i style={{color}}
+        className={value >= 5
           ? 'fas fa-star' 
           : value >= 4.5 
           ? 'fa fa-star-half-alt' 
-          : 'far fa-star'}
-          ></i>
+          : 'far fa-star'}>
+             
+          </i>
       </span>
+
+      
       <span>{text && text}</span>
     </div>
   )
