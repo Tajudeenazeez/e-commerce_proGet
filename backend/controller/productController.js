@@ -26,4 +26,4 @@ const Product = require('../models/productModel')
       }
    })
 
-   export { getProducts, getProductById}
+   module.exports =  (getProducts, getProductById)
