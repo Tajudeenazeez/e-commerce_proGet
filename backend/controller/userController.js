@@ -29,6 +29,40 @@ const token = require('../utils/generateToken')
    
   })
 
+// @desc Register a new user
+// @route Post /api/user/
+// @access Public
+
+const registerUser = asyncHandler(async (req, res) => {
+  const {name, email, password} = req.body
+
+   const userExists = await User.findOne({ email:email })
+    
+   if(userExists) {
+     res.status(400)
+      throw new Error('User already exists')
+      
+  }
+  const user = await User.create({
+    name,
+    email,
+    password
+  })
+  if(user) {
+    res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          token: token(user._id)
+
+    })
+  } else {
+    res.status(400)
+    throw new Error ('Invalid user data')
+  }
+})
+
   // @desc GET user  profile 
 // @route  GET /api/users/profile
 // @access Private
@@ -50,7 +84,4 @@ const getUserProfile = asyncHandler(async (req, res) => {
    
 })
 
-
-
-
-  module.exports = (authUser, getUserProfile)
+  module.exports = (authUser, getUserProfile, registerUser)
