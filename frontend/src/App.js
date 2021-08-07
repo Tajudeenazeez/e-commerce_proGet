@@ -5,18 +5,20 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomeScreen from './screen/HomeScreen';
 import ProductScreen from './screen/ProductScreen';
-
 import CartScreen from './screen/CartScreen';
-
+import LoginScreen from './screen/LoginScreen';
+import RegisterScreen from "./screen/RegisterScreen";
 function App() {
   return (
     <Router>
       <Header/> 
       <main className='py-3'>
         <Container>
-           <Route path='/' component={HomeScreen} exact />
+           <Route path='/register' component={RegisterScreen} />       
+           <Route path='/login' component={LoginScreen} />
            <Route path='/product/:id' component={ProductScreen} />
            <Route path='/product/:id?' component={CartScreen} />
+           <Route path='/' component={HomeScreen} exact />
         </Container>
       </main>
      
