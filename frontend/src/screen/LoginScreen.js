@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import  Message  from "../components/Message";
 import  Loader  from "../components/Loader";
 import FormContainer  from "../components/FormContainer"; 
-import  login from '../action/userActions'
+import  {login} from '../action/userActions'
 
 const LoginScreen = ({location, history}) => {
    const [email, setEmail] = useState('')
@@ -57,11 +57,11 @@ const LoginScreen = ({location, history}) => {
           Sign in
         </Button>
 
-        <Row py='3'>
+        <Row py='3px'>
           <Col>
           New Customer?{ ' ' } 
           <Link 
-          to={redirect ? `/register? redirect=${redirect}` : '/register'}>
+          to={redirect ? `/register?redirect=${redirect}` : '/register'}>
             Register
           </Link>
           </Col>
@@ -73,3 +73,4 @@ const LoginScreen = ({location, history}) => {
 }
 
 export default LoginScreen
+

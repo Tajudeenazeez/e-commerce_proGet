@@ -8,7 +8,7 @@ const Product = require('../models/productModel')
 
   const getProducts = asyncHandler(async (req, res) => {
       const products = await Product.find({})
-  res.json(products)
+    res.json(products)
    })
 
 // @desc Fetch single product
@@ -22,8 +22,8 @@ const Product = require('../models/productModel')
         res.json(product)
       } else{
           res.status(404)
-          throw new Error('Product not found') 
+          throw new Error('Products not found') 
       }
    })
 
-   module.exports =  (getProducts, getProductById)
+   module.exports =  {getProducts, getProductById}
