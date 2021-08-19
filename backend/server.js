@@ -5,6 +5,7 @@ const connectDB = require('./config/db')
 const mongoose = require('mongoose');
 const productRoutes = require('./route/productRoutes')
 const userRoutes = require('./route/userRoutes')
+const orderRoutes = require('./route/orderRoutes')
 
 
 const { notFound, errorHandler} = require('./customError/middleware')
@@ -23,7 +24,11 @@ app.get('/', (req, res) => {
 
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/orders', orderRoutes)
 
+app.get('/api/config/paypal', (req, res) =>
+res.send(process.env.PAYPAL_CLIENT)
+)
 
 app.use(notFound)
 app.use(errorHandler)

@@ -12,12 +12,15 @@ import ProfileScreen from './screen/ProfileScreen';
 import ShippingScreen from './screen/ShippingScreen';
 import PaymentScreen from './screen/PaymentScreen';
 import PlaceOrderScreen from './screen/PlaceOrderScreen';
+import OrderScreen from './screen/OrderScreen';
+
 
 function App() {
   return (    <Router>
       <Header/> 
       <main className='py-3'>
         <Container>
+           <Route path='/Order/:id' component={OrderScreen} />
            <Route path='/placeOrder' component={PlaceOrderScreen} />
            <Route path='/payment' component={PaymentScreen} />
            <Route path='/shipping' component={ShippingScreen} />  

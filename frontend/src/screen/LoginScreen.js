@@ -25,7 +25,7 @@ const LoginScreen = ({location, history}) => {
 
     const submitHandler = (e) => {
       e.preventDefault()
-      dispatch(login(email,password))
+      dispatch(login(email, password))
     }
   return (
     <FormContainer>
@@ -44,7 +44,7 @@ const LoginScreen = ({location, history}) => {
         </Form.Group>
 
         <Form.Group controlId ='password'>
-            <Form.Label>password Address</Form.Label>
+            <Form.Label>password </Form.Label>
             <Form.Control 
             type='password' 
             placeholder='Enter password'
@@ -57,9 +57,9 @@ const LoginScreen = ({location, history}) => {
           Sign in
         </Button>
 
-        <Row py='3px'>
+        <Row>
           <Col>
-          New Customer?{ ' ' } 
+          New Customer?{' '} 
           <Link 
           to={redirect ? `/register?redirect=${redirect}` : '/register'}>
             Register
