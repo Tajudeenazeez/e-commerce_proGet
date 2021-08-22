@@ -222,15 +222,10 @@ export const deleteUser = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`
       }
     }
-    const {data} = await axios.delete( 
+    await axios.delete( 
       `/api/users/${id}`, config
     )
-    dispatch({
-      type: USER_DELETE_SUCCESS,
-      //paload for data added cos of complain of data define but not used
-      payload: `You deleted ${data}`
-    
-    })
+    dispatch({type: USER_DELETE_SUCCESS})
   } catch (error){
     dispatch({
       type: USER_DELETE_FAIL,

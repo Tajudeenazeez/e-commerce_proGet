@@ -22,7 +22,7 @@ const UserListScreen = ({history}) => {
     } else{
       history.push(`/login`)
     }
-    //remove userLogin and userInfor if dispatch fails
+
   }, [dispatch, history, successDelete, userLogin, userInfo ])
   
   const deleteHandler = (id) =>{
