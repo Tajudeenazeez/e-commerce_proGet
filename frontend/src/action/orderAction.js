@@ -116,10 +116,7 @@ export const payOrder  = (orderId, paymentResult) => async (dispatch, getState) 
     })
   }
 }
-export const orderDisplay  = () => async (
-  dispatch, 
-  getState
-  ) => {
+export const orderDisplayAction  = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_DISPLAY_REQUEST 

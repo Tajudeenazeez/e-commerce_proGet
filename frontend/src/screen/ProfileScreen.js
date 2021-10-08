@@ -4,45 +4,44 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Row, Col, Button, Form, Table } from "react-bootstrap";
 import  Message from "../components/Message";
 import  Loader  from "../components/Loader";
-import   { getUserDetail, updateProfile }  from "../action/userActions";
-import { orderDisplay } from "../action/orderAction";
-const ProfileScreen = ([history ]) => {
+import   { getUserDetail, updateProfileAction }  from "../action/userActions";
+import { orderDisplayAction } from "../action/orderAction";
+
+const ProfileScreen = ({history} ) => {
+  const dispatch = useDispatch()
+  
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
 
-  const dispatch = useDispatch()
-
-  const userDetail = useSelector(state => state.userDetail)
-  const { loading, error, orders  } = userDetail
-
-
+  const userDetail = useSelector((state) => state.userDetail)
+  const { loading, error, user  } = userDetail
+  //console.log(user)
   
-  const userLogin = useSelector(state => state.userLogin)
+
+  const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
   
-  const userUpdateProfile = useSelector(state => state.userUpdateProfile)
-  const { success } = userUpdateProfile
+  const updateProfile = useSelector(state => state.updateProfile)
+  const { success } = updateProfile
   
-  const orderMyDisplay = useSelector(state => state.orderMyDisplay)
-  const { loading:loadingOrders, error:errorOrders, user } = orderMyDisplay
+  const orderDisplay = useSelector(state => state.orderDisplay)
+  const { loading:loadingOrders, error:errorOrders, orders } = orderDisplay
 
   useEffect(() => {
     if(!userInfo) {
       history.push(`/login`)
     } else {
-      if(!user.name ) {
-        dispatch(getUserDetail("profile"))
-        dispatch(orderDisplay())
-      } else {
-        setName(user.name)
-        setEmail(user.email)
-         }
+      if (!userInfo.name) {
+        dispatch(getUserDetail('profile'))
+      } else{
+        setName(userInfo.name)
+        setEmail(userInfo.email)
+      }  
     } 
-    
-  }, [dispatch, history, userInfo, user])
+  }, [dispatch, history, userInfo])
 
    const submitHandler = (e) => {
      e.preventDefault()
@@ -50,7 +49,7 @@ const ProfileScreen = ([history ]) => {
        setMessage('Password do not match')
      } else {
        //dispatch update profile
-       dispatch(updateProfile({id: user._id, name, email}))
+       dispatch(updateProfileAction({id: user._id, name, email}))
 
      }
    }
@@ -77,7 +76,7 @@ const ProfileScreen = ([history ]) => {
        <Form.Group controlId='email'>
            <Form.Label>Email</Form.Label>
            <Form.Control 
-           type='email' 
+           type='email'
            placeholder='Enter email'
            value ={email} 
            onChange= {(e) => setEmail(e.target.value)} >
@@ -112,9 +111,8 @@ const ProfileScreen = ([history ]) => {
 
    <Col md={9}>
      <h2>My Order</h2>
-     {loadingOrders ? 
-     <Loader/> : errorOrders ? 
-     <Message variant='danger'>{error}</Message> : (
+     {loadingOrders ? <Loader/> :
+      errorOrders ? <Message variant='danger'>{error}</Message> : (
        <Table striped bordered hover responsive className = 'table-sm'>
          <thead>
            <tr>
@@ -127,41 +125,6 @@ const ProfileScreen = ([history ]) => {
            </tr>
          </thead>
 
-         <tbody>
-           {orders.map(order => (
-             <tr key={order._id}>
-               <td>{order._id}</td>
-               <td>{order.createdAt.substring(0, 10)}</td>
-               <td>{order._totalPrice}</td>
-               <td>
-                 {order._isPaid ? (
-                  order.paidAt.sunstring(0, 10)
-                    ) : (
-                  <i className='fas fa-times' style={{ color: 'red' }}></i>
-
-                  )}
-               </td>
-               <td>
-                  {order._isDelievered ? (
-                  order.deliveredAt.sunstring(0, 10)
-                ) : (
-                  <i className='fas fa-times' style={{ color: 'red' }}></i>
-
-                )}
-               </td>
-
-               <td>
-                 <LinkContainer to=
-                 {`/order/${order._id}`}>
-                   <Button className='btn-sm' variant='light'>
-                     Details
-                   </Button>
-                 
-                 </LinkContainer>
-                 </td>
-             </tr>
-           ))}
-         </tbody>
        </Table>
 
      )  

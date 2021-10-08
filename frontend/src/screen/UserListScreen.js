@@ -5,25 +5,28 @@ import { LinkContainer } from "react-router-bootstrap";
 import Loader from "../components/Message";
 import Message from "../components/Loader";
 import { listUsers, deleteUser } from "../action/userActions";
+
 const UserListScreen = ({history}) => {
   const dispatch = useDispatch()
 
   const userList = useSelector(state => state.userList)
-  const { loading, error, user} = userList
+  const { loading, error, users} = userList
+
   const userLogin = useSelector(state => state.userLogin)
-  const { userInfo} = userLogin
+  const {userInfo} = userLogin
 
   const userDelete = useSelector(state => state.userDelete)
   const { success: successDelete} = userDelete
 
+  
   useEffect(() => {
-    if (userLogin && userInfo.isAdmin) {
+    if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers())
     } else{
       history.push(`/login`)
     }
 
-  }, [dispatch, history, successDelete, userLogin, userInfo ])
+  }, [dispatch, history, successDelete, userLogin, users, userInfo ])
   
   const deleteHandler = (id) =>{
     if(window.confirm('Are you sure')) {
@@ -45,13 +48,14 @@ const UserListScreen = ({history}) => {
                 <th>ADMIN</th>
                 <th></th>
               </tr>
+              </thead>
               <tbody>
-                {user.map(user => (
+                {users.map(user => (
                     <tr key={user._id}>
                     <td>{user._id}</td>
                     <td>{user.name}</td>
                     <td><a href={`mailto:${user.email}`} >{user.email}</a></td>
-                    <td>{user.isAdmin ? (
+                    <td>{user.role ? (
                       <i className='fas fa-check' style={{color:'green'}}></i>):(
                       <i className='fas fa-times' style={{color:'red'}}></i>
                       )}
@@ -69,11 +73,8 @@ const UserListScreen = ({history}) => {
 
                 )  
                 )}
-
-              
-                
               </tbody>
-            </thead>
+            
           </Table>
         )}
     </>

@@ -46,8 +46,8 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data
-
     })
+    
     localStorage.setItem('userInfo', JSON.stringify(data))
 
 
@@ -68,8 +68,6 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_USERDETAIL_RESET})
   dispatch({ type: ORDER_DISPLAY_RESET})
   dispatch({ type: USER_LIST_RESET})
-
-
 }
 
 export const register = (name, email, password) => async (dispatch) => {
@@ -115,26 +113,20 @@ export const register = (name, email, password) => async (dispatch) => {
 
 export const getUserDetail = (id) => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: USER_USERDETAIL_REQUEST
-    })
-  const {useLogin: { userInfo } } = getState()
-
+    const {useLogin: { userInfo } } = getState()
+    dispatch({type: USER_USERDETAIL_REQUEST})
     const config = {
       headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`
+        'Content-Type': 'application/json',
+         Authorization: `Bearer ${userInfo.token}`
       }
     }
-    const {data} = await axios.get( 
-      `/api/users/${id}`,config
-    )
+    const {data} = await axios.get(`/api/users/${id}`, config)
+    
     dispatch({
       type: USER_USERDETAIL_SUCCESS,
       payload: data
-
     })
-
   } catch (error){
     dispatch({
       type: USER_USERDETAIL_FAIL,
@@ -146,15 +138,12 @@ export const getUserDetail = (id) => async (dispatch, getState) => {
   }
 }
 
-
-
-export const updateProfile = (user) => async (dispatch, getState) => {
+export const updateProfileAction = (user) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_UPDATEPROFILE_REQUEST
     })
-  const {useLogin: { userInfo } } = getState()
-
+    const {useLogin: { userInfo } } = getState()
     const config = {
       headers: {
         'Content-type': 'application/json',
@@ -167,9 +156,7 @@ export const updateProfile = (user) => async (dispatch, getState) => {
     dispatch({
       type: USER_UPDATEPROFILE_SUCCESS,
       payload: data
-
     })
-
   } catch (error){
     dispatch({
       type: USER_UPDATEPROFILE_FAIL,
@@ -183,11 +170,8 @@ export const updateProfile = (user) => async (dispatch, getState) => {
 
 export const listUsers = () => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: USER_LIST_REQUEST
-    })
-  const {useLogin: { userInfo } } = getState()
-
+    const {useLogin: { userInfo } } = getState()
+    dispatch({ type: USER_LIST_REQUEST})
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
@@ -199,9 +183,7 @@ export const listUsers = () => async (dispatch, getState) => {
     dispatch({
       type: USER_LIST_SUCCESS,
       payload: data
-
     })
-
   } catch (error){
     dispatch({
       type: USER_LIST_FAIL,
@@ -218,8 +200,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     dispatch({
       type: USER_DELETE_REQUEST
     })
-  const {useLogin: { userInfo } } = getState()
-
+    const {useLogin: { userInfo } } = getState()
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
@@ -276,9 +257,3 @@ export const UpdateUser = (user) => async (dispatch, getState) => {
     })
   }
 }
-
-
-
-
-
-

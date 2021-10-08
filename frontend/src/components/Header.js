@@ -8,6 +8,7 @@ const Header = () => {
 const dispatch = useDispatch()
 const userLogin = useSelector(state => state.userLogin)
 const {userInfo} = userLogin
+
 const logoutHandler = () => {
   dispatch(logout())
 }
@@ -23,7 +24,7 @@ const logoutHandler = () => {
         <Navbar.Collapse id = 'basic-navbar-nav'>
           <Nav className='ms-auto'>
             <LinkContainer to='/cart'>
-              <Nav.Link><i className='fas fa shopping-cart'></i> Cart</Nav.Link> 
+              <Nav.Link><i className='fas fa-shopping-cart'></i> Cart</Nav.Link> 
             </LinkContainer>
             {userInfo ? (
               <NavDropdown title={userInfo.name} id='username'>
@@ -32,7 +33,7 @@ const logoutHandler = () => {
                 </LinkContainer>
 
                 <NavDropdown.Item onClick={logoutHandler}>
-                  Logout
+                  Logout 
                 </NavDropdown.Item>
               </NavDropdown>
               

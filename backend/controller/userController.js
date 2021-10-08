@@ -9,7 +9,7 @@ const token = require('../utils/generateToken')
   const authUser = asyncHandler(async (req, res) => {
      const {email, password} = req.body
 
-      const user = await User.findById({ email:email })
+      const user = await User.findOne({email})
        
       if(user && (await user.matchPassword(password))) {
         res.json({
@@ -40,8 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
     
    if(userExists) {
      res.status(400)
-      throw new Error('User already exists')
-      
+      throw new Error('User already exists')    
   }
   const user = await User.create({
     name,
@@ -114,7 +113,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 // @desc GET all user  
 // @route  GET /api/users
-// @access Private admin
+// @access Private/admin
 
 const getUser = asyncHandler(async (req, res) => {
   const users = await User.find({})
@@ -141,7 +140,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 // @desc GET user by Id  
 // @route  GET /api/users
-// @access Private admin
+// @access Private/admin
 
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select('-password')

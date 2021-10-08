@@ -12,7 +12,6 @@ import {
   USER_UPDATEPROFILE_REQUEST,
   USER_UPDATEPROFILE_SUCCESS,
   USER_UPDATEPROFILE_FAIL,
-  USER_USERDETAIL_RESET,
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
@@ -64,9 +63,6 @@ export const userDetailReducer = (state = { user:{}}, action) =>{
       return { loading: false, user: action.payload}
     case USER_USERDETAIL_FAIL:
       return { loading: false, error: action.payload }
-      case USER_USERDETAIL_RESET:
-        return { user: {} }
-      
       default: 
       return state
   }
@@ -86,16 +82,16 @@ export const updateProfileReducer = (state = {}, action) =>{
   }
 }
 
-export const userListReducer = (state = {users:[]}, action) =>{
+export const userListReducer = (state = {userInfo:[]}, action) =>{
   switch(action.type) {
     case USER_LIST_REQUEST:
       return { loading: true }
     case USER_LIST_SUCCESS:
-      return { loading: false, users: action.payload}
+      return { loading: false, userInfo: action.payload}
     case USER_LIST_FAIL:
       return { loading: false, error: action.payload }
       case USER_LIST_RESET:
-        return { user:[] }
+        return { userInfo:[] }
       default: 
       return state
   }
@@ -114,7 +110,7 @@ export const userDeleteReducer = (state = {}, action) =>{
   }
 } 
 
-export const userUpdateReducer = (state = {user:{}}, action) =>{
+export const userUpdateReducer = (state = {userInfo:{}}, action) =>{
   switch(action.type) {
     case USER_UPDATE_REQUEST:
       return { loading: true }
@@ -123,7 +119,7 @@ export const userUpdateReducer = (state = {user:{}}, action) =>{
     case USER_UPDATE_FAIL:
       return { loading: false, error: action.payload }
     case USER_UPDATE_RESET:
-      return { user:{}}
+      return { userInfo:{}}
       default:
       return state
   }

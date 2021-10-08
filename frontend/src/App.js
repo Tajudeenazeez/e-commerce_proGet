@@ -13,16 +13,17 @@ import ShippingScreen from './screen/ShippingScreen';
 import PaymentScreen from './screen/PaymentScreen';
 import PlaceOrderScreen from './screen/PlaceOrderScreen';
 import OrderScreen from './screen/OrderScreen';
-import UserListScreen, {  } from "./screen/UserListScreen";
+import UserListScreen from "./screen/UserListScreen";
 import UserEditScreen from './screen/UserEditScreen';
-
+import ProductListScreen from "./screen/ProductListScreen";
 
 function App() {
-  return (    <Router>
+  return (   
+     <Router>
       <Header/> 
       <main className='py-3'>
         <Container>
-           <Route path='/admin/user/:id/edit' component={UserEditScreen} />
+           <Route path='/admin/:id/edit' component={UserEditScreen} />
            <Route path='/admin/userList' component={UserListScreen} />
            <Route path='/Order/:id' component={OrderScreen} />
            <Route path='/placeOrder' component={PlaceOrderScreen} />
@@ -32,16 +33,14 @@ function App() {
            <Route path='/register' component={RegisterScreen} />       
            <Route path='/login' component={LoginScreen} />
            <Route path='/product/:id' component={ProductScreen} />
-           <Route path='/product/:id?' component={CartScreen} />
+           <Route path='/cart/:id?' component={CartScreen} />
            <Route path='/' component={HomeScreen} exact />
+           <Route path='/admin/productList' component={ProductListScreen} />
         </Container>
       </main>
      
       <Footer/>
     </Router>
-
-  
-
   );
 }
 

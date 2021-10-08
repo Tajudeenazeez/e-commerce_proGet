@@ -10,9 +10,12 @@ const orderRoutes = require('./route/orderRoutes')
 
 const { notFound, errorHandler} = require('./customError/middleware')
 
-//mongoose.connect()
 dotenv.config();
+
+//mongoose.connect()
 connectDB();
+
+
 const app = express();
 
 app.use(express.json())

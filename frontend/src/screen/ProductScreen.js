@@ -7,38 +7,38 @@ import  Loader  from "../components/Loader";
 import  Message  from "../components/Message";
 import { listProductDetails } from '../action/productActions'
 
-
 const ProductScreen = ({ history, match }) => {
-   const [qty, setQty] = useState(1)
    const dispatch = useDispatch()
+   const [qty, setQty] = useState(1)
+   
    const productDetails = useSelector(state => state.productDetails)
    const { loading, error, product } = productDetails
+  
   
   //eslint-disable-next-line
   useEffect(() => {
     dispatch(listProductDetails(match.params.id))
   }, [dispatch, match])
-const addToCartHandler = () => {
+
+  const addToCartHandler = () => {
   history.push(`/cart/${match.params.id}?qty=${qty}`)
-}
+  }
 
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
         Go Back
       </Link>
-        {
-          loading ? <Loader/> : error ? <Message variant = 'danger'>{error}</Message> : (
+        {loading ? <Loader/> : 
+        error ? <Message variant = 'danger'>{error}</Message> : (
     <Row>
-      <Col md = {6}>
+      <Col md = {5}>
         <Image src={product.image} alt={product.image} fluid />
       </Col>
-    <Col md={3}>
-    <ListGroup variant='flush'>
-      <ListGroup.Item>
-        <h2>{product.name}</h2>
-      </ListGroup.Item>
-      <ListGroup.Item>
+      <Col md={5}>
+        <ListGroup variant='flush'>
+          <ListGroup.Item><h2>{product.name}</h2> </ListGroup.Item>
+        <ListGroup.Item>
         <Rating 
           value={product.rating}
           text={`${product.numReviews} reviews`}
