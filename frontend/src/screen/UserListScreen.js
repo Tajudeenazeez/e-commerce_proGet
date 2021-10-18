@@ -6,14 +6,16 @@ import Loader from "../components/Message";
 import Message from "../components/Loader";
 import { listUsers, deleteUser } from "../action/userActions";
 
+
 const UserListScreen = ({history}) => {
   const dispatch = useDispatch()
+  
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
 
-  const userList = useSelector(state => state.userList)
-  const { loading, error, users} = userList
-
-  const userLogin = useSelector(state => state.userLogin)
-  const {userInfo} = userLogin
+   const userList = useSelector(state => state.userList)
+   const { loading, error, users} = userList
+  
 
   const userDelete = useSelector(state => state.userDelete)
   const { success: successDelete} = userDelete
@@ -26,7 +28,7 @@ const UserListScreen = ({history}) => {
       history.push(`/login`)
     }
 
-  }, [dispatch, history, successDelete, userLogin, users, userInfo ])
+  }, [dispatch, history, successDelete, userInfo, users ])
   
   const deleteHandler = (id) =>{
     if(window.confirm('Are you sure')) {
@@ -55,7 +57,7 @@ const UserListScreen = ({history}) => {
                     <td>{user._id}</td>
                     <td>{user.name}</td>
                     <td><a href={`mailto:${user.email}`} >{user.email}</a></td>
-                    <td>{user.role ? (
+                    <td>{user.isAdmin ? (
                       <i className='fas fa-check' style={{color:'green'}}></i>):(
                       <i className='fas fa-times' style={{color:'red'}}></i>
                       )}

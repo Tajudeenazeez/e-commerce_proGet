@@ -5,7 +5,8 @@ const {
   getProducts, 
   getProductById, 
   deleteProduct,  
-  createProduct
+  createProduct, 
+  updateProduct
 } = require('../controller/productController')
 const  {protect, admin} = require('../customError/authMiddleware')
 
@@ -16,7 +17,7 @@ router.route('/')
 router.route('/:id')
   .get(getProductById)
   .delete(protect, admin, deleteProduct)
-  .post(protect, admin, createProduct)
+  .put(protect, admin, updateProduct)
 
 
 

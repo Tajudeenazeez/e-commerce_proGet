@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express');
 const dotenv = require('dotenv');
 const colors = require('colors')
@@ -6,8 +7,7 @@ const mongoose = require('mongoose');
 const productRoutes = require('./route/productRoutes')
 const userRoutes = require('./route/userRoutes')
 const orderRoutes = require('./route/orderRoutes')
-
-
+const uploadRoutes = require('./route/uploadRoutes')
 const { notFound, errorHandler} = require('./customError/middleware')
 
 dotenv.config();
@@ -15,11 +15,9 @@ dotenv.config();
 //mongoose.connect()
 connectDB();
 
-
 const app = express();
 
 app.use(express.json())
-
 
 app.get('/', (req, res) => {
   res.send('API is running')
@@ -28,10 +26,14 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
+app.use('/api/uploads', uploadRoutes)
 
 app.get('/api/config/paypal', (req, res) =>
 res.send(process.env.PAYPAL_CLIENT)
 )
+
+//const __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 app.use(notFound)
 app.use(errorHandler)

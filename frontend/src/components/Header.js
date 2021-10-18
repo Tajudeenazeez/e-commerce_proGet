@@ -1,6 +1,6 @@
 import React from 'react'
 import {LinkContainer} from 'react-router-bootstrap'
-import {Navbar, Nav, Container, NavDropdown} from 'react-bootstrap'
+import {Navbar, Nav, Container, NavDropdown, Image} from 'react-bootstrap'
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../action/userActions";
 const Header = () => {
@@ -17,7 +17,9 @@ const logoutHandler = () => {
     <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
       <Container>
         <LinkContainer to='/'>
-        <Navbar.Brand>Proget</Navbar.Brand>
+        <Navbar.Brand>
+          <Image src='progetlogo.ico' alt='proget' style={{height:'60px',width:'100px'}} />
+        </Navbar.Brand>
 
         </LinkContainer>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />

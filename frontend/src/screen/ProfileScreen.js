@@ -1,11 +1,9 @@
 import React, {useState, useEffect}  from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
 import { Row, Col, Button, Form, Table } from "react-bootstrap";
 import  Message from "../components/Message";
 import  Loader  from "../components/Loader";
 import   { getUserDetail, updateProfileAction }  from "../action/userActions";
-import { orderDisplayAction } from "../action/orderAction";
 
 const ProfileScreen = ({history} ) => {
   const dispatch = useDispatch()
@@ -17,9 +15,7 @@ const ProfileScreen = ({history} ) => {
   const [message, setMessage] = useState(null)
 
   const userDetail = useSelector((state) => state.userDetail)
-  const { loading, error, user  } = userDetail
-  //console.log(user)
-  
+  const { loading, error, user  } = userDetail  
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -28,7 +24,7 @@ const ProfileScreen = ({history} ) => {
   const { success } = updateProfile
   
   const orderDisplay = useSelector(state => state.orderDisplay)
-  const { loading:loadingOrders, error:errorOrders, orders } = orderDisplay
+  const { loading:loadingOrders, error:errorOrders} = orderDisplay
 
   useEffect(() => {
     if(!userInfo) {

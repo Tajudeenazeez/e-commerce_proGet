@@ -116,8 +116,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @access Private/admin
 
 const getUser = asyncHandler(async (req, res) => {
-  const users = await User.find({})
-    res.json(user)
+  try {
+    const users = await User.find({})
+    res.json(users)
+    
+  } catch (error) {
+    return {message: 'users not found'}  
+  }
   }
 )
 

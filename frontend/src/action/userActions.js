@@ -171,12 +171,12 @@ export const updateProfileAction = (user) => async (dispatch, getState) => {
 export const listUsers = () => async (dispatch, getState) => {
   try {
     const {useLogin: { userInfo } } = getState()
-    dispatch({ type: USER_LIST_REQUEST})
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
       }
     }
+    dispatch({ type: USER_LIST_REQUEST})
     const {data} = await axios.get( 
       `/api/users`, config
     )

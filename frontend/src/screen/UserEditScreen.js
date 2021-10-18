@@ -8,8 +8,8 @@ import  FormContainer  from "../components/FormContainer";
 import {getUserDetail, UpdateUser} from "../action/userActions";
 import { USER_UPDATE_RESET } from '../constants/userConstants';
 
-  const UserEditScreen = ({match, history}) => {
-    const userId = match.params.id
+const UserEditScreen = ({match, history}) => {
+  const userId = match.params.id
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

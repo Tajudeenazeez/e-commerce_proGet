@@ -54,7 +54,7 @@ const Product = require('../models/productModel')
       numReviews: 'Sample description' 
     })
     const createdProduct = await product.save()
-      res.status(201).json(product)
+      res.status(201).json(createdProduct)
     })
 
 // desc Update a product

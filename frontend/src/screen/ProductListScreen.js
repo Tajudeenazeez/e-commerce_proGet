@@ -38,12 +38,11 @@ import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
     } 
     if (successCreate) {
       history.push(`/admin/product/${createdProduct._id}/edit`)   
-    }
-    else{
+    } else{
       dispatch(listProducts())
     }
 
-  }, [dispatch, history,  userLogin, userInfo, successDelete, successCreate, createdProduct ])
+  }, [dispatch, history, userInfo, successDelete, successCreate, createdProduct ])
   
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
@@ -52,9 +51,8 @@ import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
   }
   const createProductHandler = () =>{
       dispatch(createProduct())
-    
   }
-  
+
   return (
     <>
     <Row className='align-items-center'>
