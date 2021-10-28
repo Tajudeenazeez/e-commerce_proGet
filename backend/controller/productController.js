@@ -7,7 +7,14 @@ const Product = require('../models/productModel')
 // @access Public
 
   const getProducts = asyncHandler(async (req, res) => {
-      const products = await Product.find({})
+    const keyword =   req.query.keyword ? {
+    name : {
+      $regex: req.query.keyword,
+      $options: 'i'
+    }
+    }: {}
+
+    const products = await Product.find({...keyword})
     res.json(products)
    })
 
@@ -90,4 +97,40 @@ const Product = require('../models/productModel')
       }
     })
 
-   module.exports =  {getProducts, getProductById, deleteProduct, createProduct, updateProduct}
+    
+// desc Create a product review
+// route Post /api/product/:id/review
+// access Private
+  const createProductReview = asyncHandler(async (req, res) => {
+    const {rating, comment } = req.body
+    const product = await Product.findById(req.params.id)
+      if (product) {
+        const alreadyReview = product.reviews.find(r => { r.user.toString() === r.user._id.toString()})
+
+      if(alreadyReview) {
+        res.status(400)
+        throw new Error('Product already reviewed')
+      }
+      const review = {
+        name : req.user.name,
+        rating: Number(rating),
+        comment,
+        user:req.user
+      }
+      product.reviews.push(review)
+      product.numReviews = product.reviews.length
+      product.rating = product.reviews.reduce((acc, start) => {acc + start.rating},0)/ product.reviewslength
+      
+      await product.save()
+      res.json('Product reviewed')
+      
+      } else {
+        res.status(404)
+        throw new Error('Product not found')
+      }
+    })
+
+
+
+
+   module.exports =  {getProducts, getProductById, deleteProduct, createProduct, updateProduct, createProductReview}

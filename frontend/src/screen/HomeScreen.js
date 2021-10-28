@@ -6,7 +6,9 @@ import  Loader   from "../components/Loader"
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from  '../action/productActions'
 
-const Homescreen = () => {
+const Homescreen = ({match}) => {
+  const keyword = match.params.keyword
+
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productList)
   const { loading, error, products} = productList
@@ -14,9 +16,9 @@ const Homescreen = () => {
   
   
   useEffect(() => {
-    dispatch(listProducts())
+    dispatch(listProducts(keyword))
     
-  }, [dispatch])
+  }, [dispatch, match, keyword])
   
   return (
     <>
